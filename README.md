@@ -1,23 +1,25 @@
-# Setup
+# ANB Case
+
+## Setup
 
 ```shell
 dotnet tool install -g dotnet-reportgenerator-globaltool
 dotnet tool install -g coverlet.console
 ```
 
-# Run test
+## Run test
 
 ```shell
 dotnet test  --collect:"XPlat Code Coverage" --results-directory=TestResults
 ```
 
-# Create code coverage report
+## Create code coverage report
 
 ```shell
 reportgenerator -reports:./TestResults/**/*.xml -targetdir:./TestCoverageReport
 ```
 
-# Run app
+## Run app
 
 ```shell
 # Normal case
@@ -37,9 +39,9 @@ dotnet run sumf 1.1 1.2
 dotnet run mkdir test:d
 ```
 
-# nab-ut
-Normal case, abnormal case and boundary in unit test
+## ANB Unit test
 
+Normal case, abnormal case and boundary trong unit test
 Trong unit test, các khái niệm **normal case**, **abnormal case**, và **boundary case** rất quan trọng để đảm bảo rằng mã của bạn hoạt động đúng trong mọi tình huống. Dưới đây là giải thích chi tiết về từng khái niệm:
 
 1. **Normal Case (Trường hợp bình thường)**:
@@ -136,7 +138,7 @@ Các loại kiểm thử này giúp đảm bảo rằng mã của bạn hoạt �
      }
      ```
 
-### Các bước cụ thể để xác định giá trị:
+## Các bước cụ thể để xác định giá trị:
 
 1. **Hiểu rõ yêu cầu và chức năng của hàm**:
    - Đọc kỹ yêu cầu và hiểu rõ chức năng của hàm hoặc phương thức bạn đang kiểm tra.
@@ -180,7 +182,9 @@ Dưới đây là các giá trị điển hình cho các kiểu dữ liệu số
    - Giá trị lớn nhất: `DateTime.MaxValue` (31/12/9999 23:59:59)
    - Giá trị điển hình: `DateTime.Now` (ngày giờ hiện tại), `DateTime.Today` (ngày hiện tại, thời gian là 00:00:00), `new DateTime(2025, 2, 3)` (ngày cụ thể)
 
-Kỹ thuật kẻ đường giá trị (Boundary Value Analysis) là một phương pháp kiểm thử phần mềm giúp xác định các giá trị kiểm thử cho **normal case**, **abnormal case**, và **boundary case**. Dưới đây là cách bạn có thể áp dụng kỹ thuật này:
+## Kỹ thuật kẻ đường giá trị (Boundary Value Analysis)
+
+Là một phương pháp kiểm thử phần mềm giúp xác định các giá trị kiểm thử cho **normal case**, **abnormal case**, và **boundary case**. Dưới đây là cách bạn có thể áp dụng kỹ thuật này:
 
 ### 1. Xác định các giá trị biên (Boundary Values)
 - **Boundary Values** là các giá trị nằm ở ranh giới của các đầu vào hợp lệ. Bạn cần xác định các giá trị này để kiểm tra xem hệ thống có xử lý đúng các giá trị ở ranh giới hay không.
@@ -253,3 +257,65 @@ public void IsValidAge_AbnormalValues_ReturnsFalse()
 
 Viết lại các function trong Sample library sao cho không còn bug.
 Sử dụng kỹ thuật đường thẳng giá trị để chứng mình đã xử lý hết tất cả các trường hợp.
+
+# Selenium
+
+**Selenium** là một bộ công cụ kiểm thử tự động mã nguồn mở, được sử dụng để kiểm thử các ứng dụng web. Nó hỗ trợ nhiều trình duyệt và nền tảng khác nhau như Windows, Mac, và Linux. Selenium cho phép bạn viết các kịch bản kiểm thử bằng nhiều ngôn ngữ lập trình khác nhau như Java, C#, Python, Ruby, và PHP.
+
+## Các thành phần chính của Selenium:
+1. **Selenium IDE**: Một plugin cho trình duyệt Firefox, cho phép ghi lại và phát lại các thao tác kiểm thử.
+2. **Selenium WebDriver**: Gửi lệnh trực tiếp đến trình duyệt và tương tác với các phần tử trên trang web.
+3. **Selenium Grid**: Cho phép chạy các kịch bản kiểm thử trên nhiều máy và trình duyệt khác nhau cùng một lúc.
+
+## Selenium và C#
+Selenium hỗ trợ ngôn ngữ lập trình C#, cho phép bạn viết các kịch bản kiểm thử tự động bằng C#. Để sử dụng Selenium với C#, bạn cần cài đặt Visual Studio và NUnit Framework. Dưới đây là các bước cơ bản:
+
+1. **Cài đặt Visual Studio**: Tải và cài đặt Visual Studio IDE.
+2. **Thiết lập Selenium WebDriver**: Thêm Selenium WebDriver vào dự án của bạn thông qua NuGet Package Manager.
+3. **Sử dụng NUnit Framework**: Tạo các lớp kiểm thử và viết các kịch bản kiểm thử bằng C# sử dụng NUnit Framework.
+
+Ví dụ đơn giản về chương trình C# sử dụng Selenium WebDriver để mở một trang web:
+
+## Setup
+
+```shell
+dotnet add package Selenium.WebDriver
+dotnet add package Selenium.Support
+dotnet add package WebDriverManager
+dotnet add package DotNetSeleniumExtras.WaitHelpers
+```
+
+## Sample code
+
+```csharp
+using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
+using NUnit.Framework;
+
+namespace SeleniumCSharp
+{
+    public class Tests
+    {
+        IWebDriver driver;
+
+        [SetUp]
+        public void Setup()
+        {
+            driver = new ChromeDriver();
+        }
+
+        [Test]
+        public void OpenGoogle()
+        {
+            driver.Navigate().GoToUrl("https://www.google.com");
+            Assert.AreEqual("Google", driver.Title);
+        }
+
+        [TearDown]
+        public void Teardown()
+        {
+            driver.Quit();
+        }
+    }
+}
+```
