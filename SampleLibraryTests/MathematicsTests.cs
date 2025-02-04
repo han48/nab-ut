@@ -5,6 +5,8 @@ namespace SampleLibraryTests;
 [TestClass]
 public sealed class MathematicsTests
 {
+    Mathematics Mathematics = new Mathematics();
+
     [TestMethod]
     public void Addition_NormalCase()
     {

@@ -9,7 +9,10 @@ public sealed class IOHelpersTest
     public void CreateDirectory_NormalCase()
     {
         string path = "test";
-        Directory.Delete(path);
+        if (Directory.Exists(path))
+        {
+            Directory.Delete(path);
+        }
 
         bool result = IOHelpers.createDirectory(path);
         Assert.AreEqual(Directory.Exists(path), result);

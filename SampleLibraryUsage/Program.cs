@@ -10,6 +10,12 @@ class Program
             Console.WriteLine("Please input action!!!");
         }
         string action = args[0].ToLower();
+        IMathematics mathematics = new Mathematics();
+        if (action == "v2")
+        {
+            action = args[1].ToLower();
+            mathematics = new MathematicsV2();
+        }
 
         switch (action)
         {
@@ -18,7 +24,7 @@ class Program
                 {
                     _ = int.TryParse(args[1], out int input1);
                     _ = int.TryParse(args[2], out int input2);
-                    int result = Mathematics.addition(input1, input2);
+                    int result = mathematics.addition(input1, input2);
                     Console.WriteLine($"{input1} + {input2} = {result}");
                     break;
                 }
@@ -27,7 +33,7 @@ class Program
                 {
                     _ = float.TryParse(args[1], out float input1);
                     _ = float.TryParse(args[2], out float input2);
-                    float result = Mathematics.addition(input1, input2);
+                    float result = mathematics.addition(input1, input2);
                     Console.WriteLine($"{input1} + {input2} = {result}");
                     break;
                 }
@@ -36,7 +42,7 @@ class Program
                 {
                     _ = int.TryParse(args[1], out int input1);
                     _ = int.TryParse(args[2], out int input2);
-                    int result = Mathematics.subtraction(input1, input2);
+                    int result = mathematics.subtraction(input1, input2);
                     Console.WriteLine($"{input1} - {input2} = {result}");
                 }
                 break;
@@ -45,7 +51,7 @@ class Program
                 {
                     _ = int.TryParse(args[1], out int input1);
                     _ = int.TryParse(args[2], out int input2);
-                    int result = Mathematics.division(input1, input2);
+                    int result = mathematics.division(input1, input2);
                     Console.WriteLine($"{input1} / {input2} = {result}");
                 }
                 break;
@@ -54,7 +60,7 @@ class Program
                 {
                     _ = int.TryParse(args[1], out int input1);
                     _ = int.TryParse(args[2], out int input2);
-                    int result = Mathematics.multiplication(input1, input2);
+                    int result = mathematics.multiplication(input1, input2);
                     Console.WriteLine($"{input1} * {input2} = {result}");
                 }
                 break;
