@@ -12,6 +12,7 @@ namespace SeleniumTestsTests;
 public sealed class MathematicsTests
 {
     private static IWebDriver? driver;
+    private static string? driverPath = null;
     private int pending = 0;
 
     static void InitializeDriver(string userDataDir = "UserData", string profileDirectory = "Selenium")
@@ -23,37 +24,12 @@ public sealed class MathematicsTests
             options.AddArgument($"--profile-directory={profileDirectory}");
             options.AddArgument($"--disable-extensions");
 
-            string os = Environment.OSVersion.Platform.ToString();
-            string targetPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "drivers");
-            string driverFilePath;
-            if (os.Contains("Win"))
+            if (null == driverPath || !File.Exists(driverPath)) 
             {
-                driverFilePath = Path.Combine(targetPath, "chromedriver.exe");
+                driverPath = new DriverManager().SetUpDriver(new ChromeConfig());
             }
-            else if (os.Contains("Unix") || os.Contains("Linux"))
-            {
-                driverFilePath = Path.Combine(targetPath, "chromedriver");
-            }
-            else if (os.Contains("Mac"))
-            {
-                driverFilePath = Path.Combine(targetPath, "chromedriver");
-            }
-            else
-            {
-                throw new NotSupportedException($"Not support : {os}");
-            }
-
-            if (!Directory.Exists(targetPath))
-            {
-                Directory.CreateDirectory(targetPath);
-            }
-            if (!File.Exists(driverFilePath))
-            {
-                string downloadedDriverPath = new DriverManager().SetUpDriver(new ChromeConfig());
-                File.Move(downloadedDriverPath, driverFilePath);
-            }
-
-            driver = new ChromeDriver(targetPath, options);
+            driver = new ChromeDriver(driverPath, options);
+            return;
         }
     }
 
@@ -151,9 +127,16 @@ public sealed class MathematicsTests
         }
     }
 
-    [ClassCleanup]
-    public static void ClassCleanup()
+    [TestInitialize]
+    public void TestInitialize()
+    {
+        ;
+    }
+
+    [TestCleanup]
+    public void TestCleanup()
     {
         CleanDriver();
     }
+
 }
