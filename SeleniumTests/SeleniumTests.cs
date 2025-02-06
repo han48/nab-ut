@@ -9,7 +9,7 @@ using System.Collections.ObjectModel;
 namespace SeleniumTestsTests;
 
 [TestClass]
-public sealed class MathematicsTests
+public sealed class SeleniumTests
 {
     private static IWebDriver? driver;
     private static string? driverPath = null;
