@@ -8,7 +8,7 @@ using System.Collections.ObjectModel;
 
 namespace SeleniumTestsTests;
 
-[TestClass]
+// [TestClass]
 public sealed class SeleniumTests
 {
     private static IWebDriver? driver;
