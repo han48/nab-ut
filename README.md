@@ -17,6 +17,9 @@ dotnet test  --collect:"XPlat Code Coverage" --results-directory=TestResults
 
 ```shell
 reportgenerator -reports:./TestResults/**/*.xml -targetdir:./TestCoverageReport
+#MACOS
+export PATH="$PATH:/Users/[ACCOUNT]/.dotnet/tools"
+reportgenerator -reports:"TestResults/**/*.xml" -targetdir:"TestCoverageReport"
 ```
 
 ## Run app
