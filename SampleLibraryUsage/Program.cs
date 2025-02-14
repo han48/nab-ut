@@ -75,6 +75,15 @@ class Program
                     Console.WriteLine($"File create: {(result ? "Success" : "Fail")}");
                     break;
                 }
+            case "swap":
+                _ = int.TryParse(args[argIndex], out int a);
+                _ = int.TryParse(args[argIndex + 1], out int b);
+                Console.WriteLine($"Before: {a} and {b}");
+                a = a ^ b;
+                b = a ^ b;
+                a = a ^ b;
+                Console.WriteLine($"After: {a} and {b}");
+                break;
 
             default:
                 Console.WriteLine($"Un-support action {action}!!!");

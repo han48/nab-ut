@@ -32,6 +32,8 @@ dotnet run mul 15 5
 dotnet run div 15 5
 dotnet run sumf 1.2 1.3
 dotnet run mkdir test
+dotnet run swap 5 10
+dotnet run swap 2147483647 2147483646
 
 # Bug
 dotnet run sum 2147483647 1
@@ -40,6 +42,7 @@ dotnet run mul 2147483647 2
 dotnet run div 2147483647 0
 dotnet run sumf 1.1 1.2
 dotnet run mkdir test:d
+
 ```
 
 ## ANB Unit test
